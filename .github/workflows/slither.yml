@@ -42,7 +42,7 @@ jobs:
         id: slither
         continue-on-error: true
         with:
-          solc-version: 0.8.13
+          solc-version: 0.8.7
           ignore-compile: true
           node-version: 16
           sarif: results.sarif
