@@ -1,5 +1,5 @@
 {
-  "name": "deterministic-factory",
+  "name": "@mean-finance/deterministic-factory",
   "version": "0.0.0",
   "description": "Deterministic contracts's addresses factory",
   "keywords": [
@@ -115,5 +115,8 @@
   },
   "engines": {
     "node": "^16.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
