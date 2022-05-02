@@ -13,7 +13,7 @@ interface IDeterministicFactory {
     bytes32 _salt,
     bytes memory _creationCode,
     uint256 _value
-  ) external returns (address _deployed);
+  ) external payable returns (address _deployed);
 
   /// @notice Get deployed address by salt
   /// @param _salt Random salt that will help contract's address generation

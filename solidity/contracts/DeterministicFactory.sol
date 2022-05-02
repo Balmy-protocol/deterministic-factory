@@ -10,7 +10,7 @@ contract DeterministicFactory is IDeterministicFactory {
     bytes32 _salt,
     bytes memory _creationCode,
     uint256 _value
-  ) external override returns (address _deployed) {
+  ) external payable override returns (address _deployed) {
     _deployed = CREATE3.deploy(_salt, _creationCode, _value);
   }
 
