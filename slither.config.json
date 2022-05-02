@@ -1,3 +1,4 @@
 {
-  "filter_paths": "node_modules|openzeppelin"
+  "detectors_to_exclude": "conformance-to-solidity-naming-conventions",
+  "filter_paths": "node_modules|openzeppelin|mocks"
 }
