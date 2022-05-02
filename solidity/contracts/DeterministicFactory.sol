@@ -9,11 +9,11 @@ contract DeterministicFactory is IDeterministicFactory {
     bytes32 _salt,
     bytes memory _creationCode,
     uint256 _value
-  ) public override returns (address _deployed) {
+  ) external override returns (address _deployed) {
     _deployed = CREATE3.deploy(_salt, _creationCode, _value);
   }
 
-  function getDeployed(bytes32 _salt) public view override returns (address _deployed) {
+  function getDeployed(bytes32 _salt) external view override returns (address _deployed) {
     _deployed = CREATE3.getDeployed(_salt);
   }
 }
