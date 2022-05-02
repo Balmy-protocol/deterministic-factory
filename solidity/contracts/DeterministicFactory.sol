@@ -5,6 +5,7 @@ import {CREATE3} from '@rari-capital/solmate/src/utils/CREATE3.sol';
 import {IDeterministicFactory} from '../interfaces/IDeterministicFactory.sol';
 
 contract DeterministicFactory is IDeterministicFactory {
+  /// @inheritdoc IDeterministicFactory
   function deploy(
     bytes32 _salt,
     bytes memory _creationCode,
@@ -13,7 +14,8 @@ contract DeterministicFactory is IDeterministicFactory {
     _deployed = CREATE3.deploy(_salt, _creationCode, _value);
   }
 
-  function getDeployed(bytes32 _salt) external view override returns (address _deployed) {
-    _deployed = CREATE3.getDeployed(_salt);
+  /// @inheritdoc IDeterministicFactory
+  function getDeployed(bytes32 _salt) external view override returns (address) {
+    return CREATE3.getDeployed(_salt);
   }
 }
