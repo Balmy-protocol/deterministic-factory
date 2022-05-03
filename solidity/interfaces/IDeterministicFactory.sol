@@ -17,6 +17,6 @@ interface IDeterministicFactory {
 
   /// @notice Get deployed address by salt
   /// @param _salt Random salt that will help contract's address generation
-  /// @return The deterministic address of the deployed smart contract i
+  /// @return The deterministic address of the deployed smart contract
   function getDeployed(bytes32 _salt) external view returns (address);
 }
