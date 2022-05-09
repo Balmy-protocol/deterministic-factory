@@ -6,8 +6,9 @@ import { given, then, when } from '@utils/bdd';
 import { expect } from 'chai';
 import { DeterministicFactory, DeterministicFactory__factory, ERC20Mock, ERC20Mock__factory } from '@typechained';
 import { randomHex } from 'web3-utils';
-import { getCreationCode } from '@utils/contracts';
+import { getCreate3Address, getCreationCode } from '@utils/contracts';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
+import { getEvents } from '@utils/event-utils';
 
 describe('DeterministicFactory', () => {
   // FactoryFactory yikes
@@ -124,8 +125,9 @@ describe('DeterministicFactory', () => {
       let initialBalance: BigNumber;
       let deploymentAddress: string;
       given(async () => {
-        deploymentAddress = await deterministicFactoryContract.callStatic.deploy(firstSalt, firstCreationCode, etherSent, {
-          value: etherSent,
+        deploymentAddress = getCreate3Address({
+          create3FactoryAddress: deterministicFactoryContract.address,
+          salt: firstSalt,
         });
         initialBalance = await ethers.provider.getBalance(deploymentAddress);
         await deterministicFactoryContract.deploy(firstSalt, firstCreationCode, etherSent, {
@@ -141,11 +143,17 @@ describe('DeterministicFactory', () => {
       let firstERC20: ERC20Mock;
       let secondERC20: ERC20Mock;
       given(async () => {
-        const firstAddress = await deterministicFactoryContract.callStatic.deploy(firstSalt, firstCreationCode, constants.Zero);
+        const firstAddress = getCreate3Address({
+          create3FactoryAddress: deterministicFactoryContract.address,
+          salt: firstSalt,
+        });
         firstERC20 = await ethers.getContractAt<ERC20Mock>(ERC20Mock__factory.abi, firstAddress);
         await deterministicFactoryContract.deploy(firstSalt, firstCreationCode, constants.Zero);
         const secondSalt = randomHex(32);
-        const secondAddress = await deterministicFactoryContract.callStatic.deploy(secondSalt, firstCreationCode, constants.Zero);
+        const secondAddress = getCreate3Address({
+          create3FactoryAddress: deterministicFactoryContract.address,
+          salt: secondSalt,
+        });
         secondERC20 = await ethers.getContractAt<ERC20Mock>(ERC20Mock__factory.abi, secondAddress);
         await deterministicFactoryContract.deploy(secondSalt, firstCreationCode, constants.Zero);
       });
