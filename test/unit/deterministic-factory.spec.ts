@@ -7,11 +7,16 @@ import { expect } from 'chai';
 import { DeterministicFactory, DeterministicFactory__factory, ERC20Mock, ERC20Mock__factory } from '@typechained';
 import { randomHex } from 'web3-utils';
 import { getCreationCode } from '@utils/contracts';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 describe('DeterministicFactory', () => {
   // FactoryFactory yikes
   let deterministicFactoryFactory: DeterministicFactory__factory;
   let deterministicFactoryContract: DeterministicFactory;
+
+  let deployer: SignerWithAddress;
+  let admin: SignerWithAddress;
+
   let snapshotId: string;
 
   const firstSalt = randomHex(32);
@@ -23,9 +28,13 @@ describe('DeterministicFactory', () => {
     },
   });
 
+  const ADMIN_ROLE = utils.keccak256(utils.toUtf8Bytes('ADMIN_ROLE'));
+  const DEPLOYER_ROLE = utils.keccak256(utils.toUtf8Bytes('DEPLOYER_ROLE'));
+
   before(async () => {
+    [deployer, admin] = await ethers.getSigners();
     deterministicFactoryFactory = await ethers.getContractFactory('solidity/contracts/DeterministicFactory.sol:DeterministicFactory');
-    deterministicFactoryContract = await deterministicFactoryFactory.deploy();
+    deterministicFactoryContract = await deterministicFactoryFactory.deploy(admin.address, deployer.address);
     snapshotId = await evm.snapshot.take();
   });
 
@@ -33,7 +42,30 @@ describe('DeterministicFactory', () => {
     await evm.snapshot.revert(snapshotId);
   });
 
+  describe('constructor', () => {
+    when('deployment is valid', () => {
+      then('ADMIN_ROLE is role admin for DEPLOYER_ROLE', async () => {
+        const adminOfDeployerRole = await deterministicFactoryContract.getRoleAdmin(DEPLOYER_ROLE);
+        expect(adminOfDeployerRole).to.equal(ADMIN_ROLE);
+      });
+      then('admin is set', async () => {
+        expect(await deterministicFactoryContract.hasRole(ADMIN_ROLE, admin.address)).to.be.true;
+      });
+      then('deployer is set', async () => {
+        expect(await deterministicFactoryContract.hasRole(DEPLOYER_ROLE, deployer.address)).to.be.true;
+      });
+    });
+  });
+
   describe('deploy', () => {
+    when('not being called from a deployer', () => {
+      then('tx gets reverted with access control message', async () => {
+        await expect(deterministicFactoryContract.connect(admin).deploy(firstSalt, firstCreationCode, 0)).to.be.revertedWith(
+          `AccessControl: account ${admin.address.toLowerCase()} is missing role ${DEPLOYER_ROLE}`
+        );
+      });
+    });
+
     testDeterministicDeploymentReverts({
       message: 'deploying same bytecode and salt',
       context: () => firstDeployment(),

@@ -75,6 +75,7 @@ const config: HardhatUserConfig = {
     deployer: {
       default: 0,
     },
+    admin: '0x1a00e1e311009e56e3b0b9ed6f86f5ce128a1c01',
   },
   mocha: {
     timeout: process.env.MOCHA_TIMEOUT || 300000,
