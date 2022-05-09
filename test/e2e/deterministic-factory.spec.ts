@@ -11,12 +11,10 @@ import { getCreationCode } from '@utils/contracts';
 
 // This has all been tested in solmate's repo, but I don't want to be left out
 describe('DeterministicFactory', () => {
-  let stranger: SignerWithAddress;
   let deterministicFactoryContract: DeterministicFactory;
   let snapshotId: string;
 
   before(async () => {
-    [stranger] = await ethers.getSigners();
     await deployments.run(['DeterministicFactory']);
     deterministicFactoryContract = await ethers.getContract<DeterministicFactory>('DeterministicFactory');
     snapshotId = await evm.snapshot.take();

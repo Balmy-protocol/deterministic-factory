@@ -3,19 +3,19 @@ import { DeployFunction } from 'hardhat-deploy/types';
 import { shouldVerifyContract } from '../utils/deploy';
 
 const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  const { deployer } = await hre.getNamedAccounts();
+  const { deployer, admin } = await hre.getNamedAccounts();
 
   const deploy = await hre.deployments.deploy('DeterministicFactory', {
     contract: 'solidity/contracts/DeterministicFactory.sol:DeterministicFactory',
     from: deployer,
-    args: [],
+    args: [admin, deployer],
     log: true,
   });
 
   if (await shouldVerifyContract(deploy)) {
     await hre.run('verify:verify', {
       address: deploy.address,
-      constructorArguments: [],
+      constructorArguments: [admin, deployer],
     });
   }
 };
