@@ -1,6 +1,6 @@
 {
   "name": "@mean-finance/deterministic-factory",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc3",
   "description": "Deterministic contracts's addresses factory",
   "keywords": [
     "ethereum",
