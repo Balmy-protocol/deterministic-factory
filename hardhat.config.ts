@@ -23,13 +23,49 @@ const networks: NetworksUserConfig =
             url: env.getNodeUrl('ethereum'),
           },
         },
+        ['ethereum-ropsten']: {
+          url: env.getNodeUrl('ethereum-ropsten'),
+          accounts: env.getAccounts('ethereum-ropsten'),
+        },
+        ['ethereum-rinkeby']: {
+          url: env.getNodeUrl('ethereum-rinkeby'),
+          accounts: env.getAccounts('ethereum-rinkeby'),
+        },
         ['ethereum-kovan']: {
           url: env.getNodeUrl('ethereum-kovan'),
           accounts: env.getAccounts('ethereum-kovan'),
         },
+        ['ethereum-goerli']: {
+          url: env.getNodeUrl('ethereum-goerli'),
+          accounts: env.getAccounts('ethereum-goerli'),
+        },
         ethereum: {
           url: env.getNodeUrl('ethereum'),
           accounts: env.getAccounts('ethereum'),
+        },
+        optimism: {
+          url: env.getNodeUrl('optimism'),
+          accounts: env.getAccounts('optimism'),
+        },
+        ['optimism-kovan']: {
+          url: env.getNodeUrl('optimism-kovan'),
+          accounts: env.getAccounts('optimism-kovan'),
+        },
+        arbitrum: {
+          url: env.getNodeUrl('arbitrum'),
+          accounts: env.getAccounts('arbitrum'),
+        },
+        ['arbitrum-rinkeby']: {
+          url: env.getNodeUrl('arbitrum-rinkeby'),
+          accounts: env.getAccounts('arbitrum-rinkeby'),
+        },
+        polygon: {
+          url: env.getNodeUrl('polygon'),
+          accounts: env.getAccounts('polygon'),
+        },
+        ['polygon-mumbai']: {
+          url: env.getNodeUrl('polygon-mumbai'),
+          accounts: env.getAccounts('polygon-mumbai'),
         },
       };
 
