@@ -23,10 +23,10 @@
     }
   ],
   "files": [
-    "solidity/contracts",
-    "solidity/interfaces",
+    "solidity",
+    "!solidity/contracts/mocks/**",
     "artifacts/solidity/**/*.json",
-    "!artifacts/contracts/mocks",
+    "!artifacts/solidity/contracts/mocks/**",
     "!artifacts/solidity/**/**/*.dbg.json",
     "typechained",
     "!typechained/**/*Mock*",

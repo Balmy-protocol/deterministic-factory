@@ -13,6 +13,14 @@ subtask(TASK_COMPILE_SOLIDITY_COMPILE_JOBS, 'Clean mocks from types if needed').
       .filter((line) => !line.includes('Mock'))
       .join('\n');
     await fs.writeFile('./typechained/index.ts', finalTypechainIndex, 'utf-8');
+
+    const typechainContractsIndexBuffer = await fs.readFile('./typechained/solidity/contracts/index.ts');
+    const finalTypechainContractsIndex = typechainContractsIndexBuffer
+      .toString('utf-8')
+      .split(/\r?\n/)
+      .filter((line) => !line.includes('mock'))
+      .join('\n');
+    await fs.writeFile('./typechained/solidity/contracts/index.ts', finalTypechainContractsIndex, 'utf-8');
   }
   return compileSolOutput;
 });
