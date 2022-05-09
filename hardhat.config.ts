@@ -105,7 +105,19 @@ const config: HardhatUserConfig = {
     eachLine: removeConsoleLog((hre) => hre.network.name !== 'hardhat'),
   },
   etherscan: {
-    apiKey: env.getEtherscanAPIKeys(['ethereum', 'ethereum-kovan']),
+    apiKey: env.getEtherscanAPIKeys([
+      'ethereum-ropsten',
+      'ethereum-rinkeby',
+      'ethereum-kovan',
+      'ethereum-goerli',
+      'ethereum',
+      'optimism',
+      'optimism-kovan',
+      'arbitrum',
+      'arbitrum-rinkeby',
+      'polygon',
+      'polygon-mumbai',
+    ]),
   },
   typechain: {
     outDir: 'typechained',
