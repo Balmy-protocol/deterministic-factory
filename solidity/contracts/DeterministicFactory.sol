@@ -6,8 +6,10 @@ import {IDeterministicFactory} from '../interfaces/IDeterministicFactory.sol';
 import {AccessControl} from '@openzeppelin/contracts/access/AccessControl.sol';
 
 contract DeterministicFactory is AccessControl, IDeterministicFactory {
-  bytes32 public ADMIN_ROLE = keccak256('ADMIN_ROLE');
-  bytes32 public DEPLOYER_ROLE = keccak256('DEPLOYER_ROLE');
+  /// @inheritdoc IDeterministicFactory
+  bytes32 public constant override ADMIN_ROLE = keccak256('ADMIN_ROLE');
+  /// @inheritdoc IDeterministicFactory
+  bytes32 public constant override DEPLOYER_ROLE = keccak256('DEPLOYER_ROLE');
 
   constructor(address _admin, address _deployer) {
     _setRoleAdmin(DEPLOYER_ROLE, ADMIN_ROLE);

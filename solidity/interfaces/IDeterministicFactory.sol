@@ -4,6 +4,14 @@ pragma solidity 0.8.7;
 /// @title Interface for using the DeterministicFactory
 /// @notice These methods allow users or developers to interact with CREATE3 library from solmate
 interface IDeterministicFactory {
+  /// @notice Hash of admin role
+  /// @return The keccak of ADMIN_ROLE
+  function ADMIN_ROLE() external view returns (bytes32);
+
+  /// @notice Hash of deployer role
+  /// @return The keccak of DEPLOYER_ROLE
+  function DEPLOYER_ROLE() external view returns (bytes32);
+
   /// @notice Deploy to deterministic addresses without an initcode factor
   /// @param _salt Random salt that will help contract's address generation
   /// @param _creationCode Smart contract creation code (including constructor args)
