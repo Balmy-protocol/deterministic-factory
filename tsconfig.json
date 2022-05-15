@@ -19,6 +19,6 @@
       "@eth-sdk-types": ["node_modules/.dethcrypto/eth-sdk-client/cjs/types"]
     }
   },
-  "include": ["./scripts", "./deploy", "./test"],
+  "include": ["./scripts", "./utils", "./deploy", "./test"],
   "files": ["./hardhat.config.ts"]
 }
