@@ -1,6 +1,6 @@
 import hre, { ethers } from 'hardhat';
 import { DeterministicFactory, DeterministicFactory__factory } from '../typechained';
-import { utils } from 'ethers';
+import { PayableOverrides, utils } from 'ethers';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { ParamType } from 'ethers/lib/utils';
 import { ArtifactData, DeploymentSubmission } from '@0xged/hardhat-deploy/types';
@@ -23,6 +23,8 @@ export const deployThroughDeterministicFactory = async ({
   contract,
   bytecode,
   constructorArgs,
+  log,
+  overrides,
 }: {
   deployer?: string;
   deployerSigner?: SignerWithAddress;
@@ -31,6 +33,8 @@ export const deployThroughDeterministicFactory = async ({
   contract: string | ArtifactData;
   bytecode: string;
   constructorArgs: { types: string[] | ParamType[]; values: any[] };
+  log?: boolean;
+  overrides?: PayableOverrides;
 }): Promise<DeploymentSubmission> => {
   if (!!deployer && !!deployerSigner && deployerSigner.address != deployer) throw new Error('Deployer and deployer signer dont match');
   if (!deployerSigner) {
@@ -55,10 +59,11 @@ export const deployThroughDeterministicFactory = async ({
   const deploymentTx = await deterministicFactory.connect(deployerSigner).deploy(
     saltAsBytes, // SALT
     creationCode,
-    0 // Value
+    0, // Value
+    overrides
   );
 
-  console.log(`deploying "${name}" (tx: ${deploymentTx.hash}) at ${deploymentAddress}`);
+  if (log) console.log(`deploying "${name}" (tx: ${deploymentTx.hash}) at ${deploymentAddress}`);
 
   const receipt = await deploymentTx.wait();
 
@@ -69,7 +74,6 @@ export const deployThroughDeterministicFactory = async ({
       contract,
       from: deployerSigner.address!,
       args: constructorArgs.values,
-      log: true,
     },
     receipt,
   });
