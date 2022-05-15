@@ -3,7 +3,7 @@ import { DeterministicFactory, DeterministicFactory__factory } from '../typechai
 import { utils } from 'ethers';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { ParamType } from 'ethers/lib/utils';
-import { ArtifactData } from '@0xged/hardhat-deploy/types';
+import { ArtifactData, DeploymentSubmission } from '@0xged/hardhat-deploy/types';
 
 export const getCreationCode = ({
   bytecode,
@@ -31,7 +31,7 @@ export const deployThroughDeterministicFactory = async ({
   contract: string | ArtifactData;
   bytecode: string;
   constructorArgs: { types: string[] | ParamType[]; values: any[] };
-}): Promise<void> => {
+}): Promise<DeploymentSubmission> => {
   if (!!deployer && !!deployerSigner && deployerSigner.address != deployer) throw new Error('Deployer and deployer signer dont match');
   if (!deployerSigner) {
     if (!deployer) throw Error('Deployer, or deployer signer must be passed');
@@ -75,4 +75,6 @@ export const deployThroughDeterministicFactory = async ({
   });
 
   await hre.deployments.save(name, deployment);
+
+  return deployment;
 };
