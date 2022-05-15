@@ -60,7 +60,7 @@ export const deployThroughDeterministicFactory = async ({
     saltAsBytes, // SALT
     creationCode,
     0, // Value
-    overrides
+    { ...overrides }
   );
 
   if (log) console.log(`deploying "${name}" (tx: ${deploymentTx.hash}) at ${deploymentAddress}`);
