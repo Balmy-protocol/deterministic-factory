@@ -3,7 +3,7 @@ import { DeterministicFactory, DeterministicFactory__factory } from '../typechai
 import { PayableOverrides, utils } from 'ethers';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { ParamType } from 'ethers/lib/utils';
-import { ArtifactData, Deploy, DeployResult } from '@0xged/hardhat-deploy/types';
+import { ArtifactData, DeployResult } from '@0xged/hardhat-deploy/types';
 
 export const getCreationCode = ({
   bytecode,
