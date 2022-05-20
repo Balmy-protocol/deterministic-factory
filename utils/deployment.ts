@@ -3,7 +3,7 @@ import { DeterministicFactory, DeterministicFactory__factory } from '../typechai
 import { PayableOverrides, utils } from 'ethers';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { ParamType } from 'ethers/lib/utils';
-import { ArtifactData, DeploymentSubmission } from '@0xged/hardhat-deploy/types';
+import { ArtifactData, Deploy, DeployResult } from '@0xged/hardhat-deploy/types';
 
 export const getCreationCode = ({
   bytecode,
@@ -37,7 +37,7 @@ export const deployThroughDeterministicFactory = async ({
   log?: boolean;
   skipIfAlreadyDeployed?: boolean;
   overrides?: PayableOverrides;
-}): Promise<DeploymentSubmission> => {
+}): Promise<DeployResult> => {
   if (!!deployer && !!deployerSigner && deployerSigner.address != deployer) throw new Error('Deployer and deployer signer dont match');
   if (!deployerSigner) {
     if (!deployer) throw Error('Deployer, or deployer signer must be passed');
@@ -48,7 +48,7 @@ export const deployThroughDeterministicFactory = async ({
   if (!!existingDeployment) {
     if (skipIfAlreadyDeployed === undefined || skipIfAlreadyDeployed === null || skipIfAlreadyDeployed) {
       if (log) console.log(`Reusing deployment of ${name} at ${existingDeployment.address}`);
-      return existingDeployment;
+      return { ...existingDeployment, newlyDeployed: false };
     }
     if (!skipIfAlreadyDeployed) {
       if (log) console.log(`Removing ${name} old deployment at ${existingDeployment.address}`);
@@ -94,5 +94,5 @@ export const deployThroughDeterministicFactory = async ({
 
   await hre.deployments.save(name, deployment);
 
-  return deployment;
+  return { ...deployment, newlyDeployed: true };
 };
