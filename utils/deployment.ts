@@ -46,11 +46,11 @@ export const deployThroughDeterministicFactory = async ({
 
   const existingDeployment = await hre.deployments.getOrNull(name);
   if (!!existingDeployment) {
-    if (skipIfAlreadyDeployed) {
-      if (log) console.log(`${name} already deployed at ${existingDeployment.address}`);
+    if (skipIfAlreadyDeployed === null || skipIfAlreadyDeployed) {
+      if (log) console.log(`Reusing deployment of ${name} at ${existingDeployment.address}`);
       return existingDeployment;
     }
-    if (!skipIfAlreadyDeployed && skipIfAlreadyDeployed === false) {
+    if (!skipIfAlreadyDeployed) {
       if (log) console.log(`Removing ${name} old deployment at ${existingDeployment.address}`);
       await hre.deployments.delete(name);
     }
