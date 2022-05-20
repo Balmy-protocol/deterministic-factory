@@ -24,6 +24,7 @@ export const deployThroughDeterministicFactory = async ({
   bytecode,
   constructorArgs,
   log,
+  skipIfAlreadyDeployed,
   overrides,
 }: {
   deployer?: string;
@@ -34,12 +35,25 @@ export const deployThroughDeterministicFactory = async ({
   bytecode: string;
   constructorArgs: { types: string[] | ParamType[]; values: any[] };
   log?: boolean;
+  skipIfAlreadyDeployed?: boolean;
   overrides?: PayableOverrides;
 }): Promise<DeploymentSubmission> => {
   if (!!deployer && !!deployerSigner && deployerSigner.address != deployer) throw new Error('Deployer and deployer signer dont match');
   if (!deployerSigner) {
     if (!deployer) throw Error('Deployer, or deployer signer must be passed');
     deployerSigner = await ethers.getSigner(deployer);
+  }
+
+  const existingDeployment = await hre.deployments.getOrNull(name);
+  if (!!existingDeployment) {
+    if (skipIfAlreadyDeployed) {
+      if (log) console.log(`${name} already deployed at ${existingDeployment.address}`);
+      return existingDeployment;
+    }
+    if (!skipIfAlreadyDeployed && skipIfAlreadyDeployed === false) {
+      if (log) console.log(`Removing ${name} old deployment at ${existingDeployment.address}`);
+      await hre.deployments.delete(name);
+    }
   }
 
   const deterministicFactory = await ethers.getContractAt<DeterministicFactory>(
