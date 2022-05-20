@@ -46,7 +46,7 @@ export const deployThroughDeterministicFactory = async ({
 
   const existingDeployment = await hre.deployments.getOrNull(name);
   if (!!existingDeployment) {
-    if (skipIfAlreadyDeployed === null || skipIfAlreadyDeployed) {
+    if (skipIfAlreadyDeployed === undefined || skipIfAlreadyDeployed === null || skipIfAlreadyDeployed) {
       if (log) console.log(`Reusing deployment of ${name} at ${existingDeployment.address}`);
       return existingDeployment;
     }
