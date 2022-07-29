@@ -8,7 +8,6 @@ import { DeterministicFactory, DeterministicFactory__factory, ERC20Mock, ERC20Mo
 import { randomHex } from 'web3-utils';
 import { getCreate3Address, getCreationCode } from '@utils/contracts';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
-import { getEvents } from '@utils/event-utils';
 
 describe('DeterministicFactory', () => {
   // FactoryFactory yikes

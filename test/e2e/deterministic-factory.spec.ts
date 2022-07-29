@@ -1,12 +1,11 @@
 import { TransactionResponse } from '@ethersproject/abstract-provider';
 import { BigNumber, constants, utils } from 'ethers';
 import { deployments, ethers } from 'hardhat';
-import { evm, wallet } from '@utils';
-import { given, then, when } from '@utils/bdd';
+import { evm } from '@utils';
+import { then, when } from '@utils/bdd';
 import { DeterministicFactory, ERC20Mock, ERC20Mock__factory } from '@typechained';
 import { expect } from 'chai';
 import { randomHex } from 'web3-utils';
-import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { getCreationCode } from '@utils/contracts';
 
 // This has all been tested in solmate's repo, but I don't want to be left out
