@@ -17,12 +17,7 @@ const networks: NetworksUserConfig =
   env.isHardhatCompile() || env.isHardhatClean() || env.isTesting()
     ? {}
     : {
-        hardhat: {
-          forking: {
-            enabled: process.env.FORK ? true : false,
-            url: env.getNodeUrl('ethereum'),
-          },
-        },
+        hardhat: {},
         ['ethereum-ropsten']: {
           url: env.getNodeUrl('ethereum-ropsten'),
           accounts: env.getAccounts('ethereum-ropsten'),
