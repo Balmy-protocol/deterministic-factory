@@ -1,13 +1,13 @@
 import { TransactionResponse } from '@ethersproject/abstract-provider';
 import { BigNumber, constants, utils } from 'ethers';
 import { ethers } from 'hardhat';
-import { evm } from '@utils';
 import { given, then, when } from '@utils/bdd';
 import { expect } from 'chai';
 import { DeterministicFactory, DeterministicFactory__factory, ERC20Mock, ERC20Mock__factory } from '@typechained';
 import { randomHex } from 'web3-utils';
 import { getCreate3Address, getCreationCode } from '@utils/contracts';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
+import { SnapshotRestorer, takeSnapshot } from '@nomicfoundation/hardhat-network-helpers';
 
 describe('DeterministicFactory', () => {
   // FactoryFactory yikes
@@ -17,7 +17,7 @@ describe('DeterministicFactory', () => {
   let deployer: SignerWithAddress;
   let admin: SignerWithAddress;
 
-  let snapshotId: string;
+  let snapshot: SnapshotRestorer;
 
   const firstSalt = randomHex(32);
   const firstCreationCode = getCreationCode({
@@ -33,13 +33,15 @@ describe('DeterministicFactory', () => {
 
   before(async () => {
     [deployer, admin] = await ethers.getSigners();
-    deterministicFactoryFactory = await ethers.getContractFactory('solidity/contracts/DeterministicFactory.sol:DeterministicFactory');
+    deterministicFactoryFactory = await ethers.getContractFactory<DeterministicFactory__factory>(
+      'solidity/contracts/DeterministicFactory.sol:DeterministicFactory'
+    );
     deterministicFactoryContract = await deterministicFactoryFactory.deploy(admin.address, deployer.address);
-    snapshotId = await evm.snapshot.take();
+    snapshot = await takeSnapshot();
   });
 
   beforeEach(async () => {
-    await evm.snapshot.revert(snapshotId);
+    await snapshot.restore();
   });
 
   describe('constructor', () => {
@@ -150,15 +152,15 @@ describe('DeterministicFactory', () => {
           create3FactoryAddress: deterministicFactoryContract.address,
           salt: firstSalt,
         });
-        firstERC20 = await ethers.getContractAt<ERC20Mock>(ERC20Mock__factory.abi, firstAddress);
         await deterministicFactoryContract.deploy(firstSalt, firstCreationCode, constants.Zero);
+        firstERC20 = await ethers.getContractAt<ERC20Mock>(ERC20Mock__factory.abi, firstAddress);
         const secondSalt = randomHex(32);
         const secondAddress = getCreate3Address({
           create3FactoryAddress: deterministicFactoryContract.address,
           salt: secondSalt,
         });
-        secondERC20 = await ethers.getContractAt<ERC20Mock>(ERC20Mock__factory.abi, secondAddress);
         await deterministicFactoryContract.deploy(secondSalt, firstCreationCode, constants.Zero);
+        secondERC20 = await ethers.getContractAt<ERC20Mock>(ERC20Mock__factory.abi, secondAddress);
       });
       then('deploys same contract on different addresses', async () => {
         expect(await firstERC20.name()).to.equal(await secondERC20.name());
