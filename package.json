@@ -1,6 +1,6 @@
 {
   "name": "@mean-finance/deterministic-factory",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Deterministic contracts's addresses factory",
   "keywords": [
     "ethereum",
@@ -82,8 +82,8 @@
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@0.3.0-beta.13",
     "@nomiclabs/hardhat-etherscan": "3.0.3",
     "@nomiclabs/hardhat-waffle": "2.0.3",
-    "@typechain/ethers-v5": "10.0.0",
-    "@typechain/hardhat": "6.0.0",
+    "@typechain/ethers-v5": "10.1.0",
+    "@typechain/hardhat": "6.1.2",
     "@types/chai": "4.3.1",
     "@types/chai-as-promised": "7.1.5",
     "@types/lodash": "4.14.182",
@@ -114,7 +114,7 @@
     "standard-version": "9.3.2",
     "ts-node": "10.7.0",
     "tsconfig-paths": "3.14.1",
-    "typechain": "8.0.0",
+    "typechain": "8.1.0",
     "typescript": "4.6.4"
   },
   "publishConfig": {
