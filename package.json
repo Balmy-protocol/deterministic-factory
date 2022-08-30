@@ -22,14 +22,15 @@
       "url": "https://github.com/0xged"
     }
   ],
+  "main": "dist",
+  "types": "dist",
   "files": [
     "solidity",
     "!solidity/contracts/mocks/**",
     "artifacts/solidity/**/*.json",
     "!artifacts/solidity/contracts/mocks/**",
     "!artifacts/solidity/**/**/*.dbg.json",
-    "typechained",
-    "!typechained/**/*Mock*",
+    "!/**/*Mock*",
     "deployments",
     "!deployments/localhost",
     "deploy",
@@ -48,14 +49,15 @@
     "lint:check": "cross-env solhint 'contracts/**/*.sol' 'interfaces/**/*.sol' && cross-env prettier --check './**'",
     "lint:fix": "sort-package-json && cross-env prettier --write './**' && cross-env solhint --fix 'contracts/**/*.sol' 'interfaces/**/*.sol'",
     "prepare": "husky install",
-    "prepublishOnly": "hardhat clean && PUBLISHING_NPM=true hardhat compile && pinst --disable",
+    "prepublishOnly": "hardhat clean && PUBLISHING_NPM=true hardhat compile && yarn transpile && pinst --disable",
     "postpublish": "pinst --enable",
     "release": "standard-version",
     "test": "yarn compile:test && cross-env TEST=true mocha",
     "test:all": "yarn test './test/e2e/**/*.spec.ts' && cross-env TEST=true mocha 'test/unit/**/*.spec.ts'",
     "test:e2e": "yarn test './test/e2e/**/*.spec.ts'",
     "test:gas": "cross-env REPORT_GAS=1 npx hardhat test",
-    "test:unit": "yarn test 'test/unit/**/*.spec.ts'"
+    "test:unit": "yarn test 'test/unit/**/*.spec.ts'",
+    "transpile": "rm -rf dist && npx tsc -p tsconfig.publish.json"
   },
   "lint-staged": {
     "*.{js,css,md,ts,sol,json}": "prettier --write",
