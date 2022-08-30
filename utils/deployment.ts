@@ -1,5 +1,5 @@
 import hre, { ethers } from 'hardhat';
-import { DeterministicFactory, DeterministicFactory__factory } from '../typechained';
+import { abi as DETERMINISTIC_FACTORY_ABI } from '../artifacts/solidity/contracts/DeterministicFactory.sol/DeterministicFactory.json';
 import { PayableOverrides, utils } from 'ethers';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { ParamType } from 'ethers/lib/utils';
@@ -56,10 +56,7 @@ export const deployThroughDeterministicFactory = async ({
     }
   }
 
-  const deterministicFactory = await ethers.getContractAt<DeterministicFactory>(
-    DeterministicFactory__factory.abi,
-    '0xbb681d77506df5CA21D2214ab3923b4C056aa3e2'
-  );
+  const deterministicFactory = await ethers.getContractAt(DETERMINISTIC_FACTORY_ABI, '0xbb681d77506df5CA21D2214ab3923b4C056aa3e2');
 
   const saltAsBytes = utils.formatBytes32String(salt);
 
