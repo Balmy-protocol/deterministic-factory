@@ -18,25 +18,17 @@ const networks: NetworksUserConfig =
     ? {}
     : {
         hardhat: {},
-        ['ethereum-ropsten']: {
-          url: env.getNodeUrl('ethereum-ropsten'),
-          accounts: env.getAccounts('ethereum-ropsten'),
-        },
-        ['ethereum-rinkeby']: {
-          url: env.getNodeUrl('ethereum-rinkeby'),
-          accounts: env.getAccounts('ethereum-rinkeby'),
-        },
-        ['ethereum-kovan']: {
-          url: env.getNodeUrl('ethereum-kovan'),
-          accounts: env.getAccounts('ethereum-kovan'),
+        ethereum: {
+          url: env.getNodeUrl('ethereum'),
+          accounts: env.getAccounts('ethereum'),
         },
         ['ethereum-goerli']: {
           url: env.getNodeUrl('ethereum-goerli'),
           accounts: env.getAccounts('ethereum-goerli'),
         },
-        ethereum: {
-          url: env.getNodeUrl('ethereum'),
-          accounts: env.getAccounts('ethereum'),
+        ['ethereum-sepolia']: {
+          url: env.getNodeUrl('ethereum-sepolia'),
+          accounts: env.getAccounts('ethereum-sepolia'),
         },
         optimism: {
           url: env.getNodeUrl('optimism'),
@@ -62,6 +54,22 @@ const networks: NetworksUserConfig =
           url: env.getNodeUrl('polygon-mumbai'),
           accounts: env.getAccounts('polygon-mumbai'),
         },
+        avalanche: {
+          url: env.getNodeUrl('avalanche'),
+          accounts: env.getAccounts('avalanche'),
+        },
+        ['avalanche-fuji']: {
+          url: env.getNodeUrl('avalanche-fuji'),
+          accounts: env.getAccounts('avalanche-fuji'),
+        },
+        bnb: {
+          url: env.getNodeUrl('bnb'),
+          accounts: env.getAccounts('bnb'),
+        },
+        ['bnb-testnet']: {
+          url: env.getNodeUrl('bnb-testnet'),
+          accounts: env.getAccounts('bnb-testnet'),
+        },
       };
 
 const config: HardhatUserConfig = {
@@ -70,7 +78,15 @@ const config: HardhatUserConfig = {
     deployer: {
       default: 0,
     },
-    admin: '0x1a00e1e311009e56e3b0b9ed6f86f5ce128a1c01',
+    eoaAdmin: '0x1a00e1E311009E56e3b0B9Ed6F86f5Ce128a1C01',
+    meanDeployer: '0xe48a5173AdE669651120cb5E99e6fE140d4d73da',
+    msig: {
+      default: '0x1a00e1E311009E56e3b0B9Ed6F86f5Ce128a1C01',
+      ethereum: '0xEC864BE26084ba3bbF3cAAcF8F6961A9263319C4',
+      optimism: '0x308810881807189cAe91950888b2cB73A1CC5920',
+      polygon: '0xCe9F6991b48970d6c9Ef99Fffb112359584488e3',
+      arbitrum: '0x84F4836e8022765Af9FBCE3Bb2887fD826c668f1',
+    },
   },
   mocha: {
     timeout: process.env.MOCHA_TIMEOUT || 300000,
@@ -101,17 +117,19 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: env.getEtherscanAPIKeys([
-      'ethereum-ropsten',
-      'ethereum-rinkeby',
-      'ethereum-kovan',
-      'ethereum-goerli',
       'ethereum',
+      'ethereum-goerli',
+      'ethereum-sepolia',
       'optimism',
       'optimism-kovan',
       'arbitrum',
       'arbitrum-rinkeby',
       'polygon',
       'polygon-mumbai',
+      'avalanche',
+      'avalanche-fuji',
+      'bnb',
+      'bnb-testnet',
     ]),
   },
   typechain: {
