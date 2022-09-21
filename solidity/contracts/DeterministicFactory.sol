@@ -12,6 +12,7 @@ contract DeterministicFactory is AccessControl, IDeterministicFactory {
   bytes32 public constant override DEPLOYER_ROLE = keccak256('DEPLOYER_ROLE');
 
   constructor(address _admin, address _deployer) {
+    _setRoleAdmin(ADMIN_ROLE, ADMIN_ROLE);
     _setRoleAdmin(DEPLOYER_ROLE, ADMIN_ROLE);
     _setupRole(ADMIN_ROLE, _admin);
     _setupRole(DEPLOYER_ROLE, _deployer);

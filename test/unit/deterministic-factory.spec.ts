@@ -44,6 +44,10 @@ describe('DeterministicFactory', () => {
 
   describe('constructor', () => {
     when('deployment is valid', () => {
+      then('ADMIN_ROLE is role admin for ADMIN_ROLE', async () => {
+        const adminOfAdminRole = await deterministicFactoryContract.getRoleAdmin(ADMIN_ROLE);
+        expect(adminOfAdminRole).to.equal(ADMIN_ROLE);
+      });
       then('ADMIN_ROLE is role admin for DEPLOYER_ROLE', async () => {
         const adminOfDeployerRole = await deterministicFactoryContract.getRoleAdmin(DEPLOYER_ROLE);
         expect(adminOfDeployerRole).to.equal(ADMIN_ROLE);
