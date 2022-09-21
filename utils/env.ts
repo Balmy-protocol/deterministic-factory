@@ -99,6 +99,12 @@ export function getEtherscanAPIKeys(networks: string[]): { [network: string]: st
         case 'bnb-testnet':
           apiKeys['bscTestnet'] = networkApiKey;
           break;
+        case 'fantom':
+          apiKeys['opera'] = networkApiKey;
+          break;
+        case 'fantom-testnet':
+          apiKeys['ftmTestnet'] = networkApiKey;
+          break;
         default:
           apiKeys[network] = networkApiKey;
           break;

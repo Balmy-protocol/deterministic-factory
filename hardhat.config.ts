@@ -70,6 +70,14 @@ const networks: NetworksUserConfig =
           url: env.getNodeUrl('bnb-testnet'),
           accounts: env.getAccounts('bnb-testnet'),
         },
+        fantom: {
+          url: env.getNodeUrl('fantom'),
+          accounts: env.getAccounts('fantom'),
+        },
+        ['fantom-testnet']: {
+          url: env.getNodeUrl('fantom-testnet'),
+          accounts: env.getAccounts('fantom-testnet'),
+        },
       };
 
 const config: HardhatUserConfig = {
@@ -130,6 +138,8 @@ const config: HardhatUserConfig = {
       'avalanche-fuji',
       'bnb',
       'bnb-testnet',
+      'fantom',
+      'fantom-testnet',
     ]),
   },
   typechain: {
