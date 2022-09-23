@@ -56,7 +56,7 @@ export const deployThroughDeterministicFactory = async ({
     }
   }
 
-  const deterministicFactory = await ethers.getContractAt(DETERMINISTIC_FACTORY_ABI, '0xbb681d77506df5CA21D2214ab3923b4C056aa3e2');
+  const deterministicFactory = await ethers.getContractAt(DETERMINISTIC_FACTORY_ABI, '0xD420ea5a1981dB5f1914954CE6e012A3bB10c015');
 
   const saltAsBytes = utils.formatBytes32String(salt);
 
