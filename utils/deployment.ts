@@ -2,7 +2,7 @@ import hre, { ethers } from 'hardhat';
 import { abi as DETERMINISTIC_FACTORY_ABI } from '../artifacts/solidity/contracts/DeterministicFactory.sol/DeterministicFactory.json';
 import { PayableOverrides, utils } from 'ethers';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
-import { ParamType } from 'ethers/lib/utils';
+import { hexlify, ParamType } from 'ethers/lib/utils';
 import { ArtifactData, DeployResult } from '@0xged/hardhat-deploy/types';
 
 export const getCreationCode = ({
@@ -58,7 +58,8 @@ export const deployThroughDeterministicFactory = async ({
 
   const deterministicFactory = await ethers.getContractAt(DETERMINISTIC_FACTORY_ABI, '0xD420ea5a1981dB5f1914954CE6e012A3bB10c015');
 
-  const saltAsBytes = utils.formatBytes32String(salt);
+  const saltToUse = process.env.USE_RANDOM_SALT === 'true' ? hexlify(utils.randomBytes(10)) : salt;
+  const saltAsBytes = utils.formatBytes32String(saltToUse);
 
   const creationCode = getCreationCode({
     bytecode,
