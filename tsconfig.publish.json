@@ -17,5 +17,5 @@
     }
   },
   "exclude": ["dist", "node_modules"],
-  "include": ["./typechained"]
+  "include": ["typechained"]
 }

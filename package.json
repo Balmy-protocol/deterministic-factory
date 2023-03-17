@@ -1,6 +1,6 @@
 {
   "name": "@mean-finance/deterministic-factory",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Deterministic contracts's addresses factory",
   "keywords": [
     "ethereum",
@@ -25,6 +25,7 @@
   "main": "dist",
   "types": "dist",
   "files": [
+    "dist",
     "solidity",
     "!solidity/contracts/mocks/**",
     "artifacts/solidity/**/*.json",
