@@ -84,6 +84,9 @@ export function getEtherscanAPIKeys(networks: string[]): { [network: string]: st
         case 'optimism-kovan':
           apiKeys['optimisticKovan'] = networkApiKey;
           break;
+        case 'bnb':
+          apiKeys['bsc'] = networkApiKey;
+          break;
         case 'arbitrum':
           apiKeys['arbitrumOne'] = networkApiKey;
           break;

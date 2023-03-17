@@ -62,6 +62,30 @@ const networks: NetworksUserConfig =
           url: env.getNodeUrl('polygon-mumbai'),
           accounts: env.getAccounts('polygon-mumbai'),
         },
+        avalanche: {
+          url: env.getNodeUrl('avalanche'),
+          accounts: env.getAccounts('avalanche'),
+        },
+        ['avalanche-fuji']: {
+          url: env.getNodeUrl('avalanche-fuji'),
+          accounts: env.getAccounts('avalanche-fuji'),
+        },
+        bnb: {
+          url: env.getNodeUrl('bnb'),
+          accounts: env.getAccounts('bnb'),
+        },
+        ['bnb-testnet']: {
+          url: env.getNodeUrl('bnb-testnet'),
+          accounts: env.getAccounts('bnb-testnet'),
+        },
+        fantom: {
+          url: env.getNodeUrl('fantom'),
+          accounts: env.getAccounts('fantom'),
+        },
+        ['fantom-testnet']: {
+          url: env.getNodeUrl('fantom-testnet'),
+          accounts: env.getAccounts('fantom-testnet'),
+        },
       };
 
 const config: HardhatUserConfig = {
@@ -112,6 +136,7 @@ const config: HardhatUserConfig = {
       'arbitrum-rinkeby',
       'polygon',
       'polygon-mumbai',
+      'bnb',
     ]),
   },
   typechain: {
