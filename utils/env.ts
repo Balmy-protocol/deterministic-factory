@@ -96,9 +96,6 @@ export function getEtherscanAPIKeys(networks: string[]): { [network: string]: st
         case 'polygon-mumbai':
           apiKeys['polygonMumbai'] = networkApiKey;
           break;
-        case 'base-goerli':
-          apiKeys['baseGoerli'] = networkApiKey;
-          break;
         default:
           apiKeys[network] = networkApiKey;
           break;
