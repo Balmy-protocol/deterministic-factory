@@ -86,6 +86,10 @@ const networks: NetworksUserConfig =
           url: env.getNodeUrl('fantom-testnet'),
           accounts: env.getAccounts('fantom-testnet'),
         },
+        ['base-goerli']: {
+          url: env.getNodeUrl('base-goerli'),
+          accounts: env.getAccounts('base-goerli'),
+        },
       };
 
 const config: HardhatUserConfig = {
@@ -137,6 +141,7 @@ const config: HardhatUserConfig = {
       'polygon',
       'polygon-mumbai',
       'bnb',
+      'base-goerli',
     ]),
   },
   typechain: {
