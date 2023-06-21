@@ -82,6 +82,10 @@ const networks: NetworksUserConfig =
           url: env.getNodeUrl('base-goerli'),
           accounts: env.getAccounts('base-goerli'),
         },
+        ['gnosis']: {
+          url: env.getNodeUrl('gnosis'),
+          accounts: env.getAccounts('gnosis'),
+        },
       };
 
 const config: HardhatUserConfig = {
@@ -145,6 +149,7 @@ const config: HardhatUserConfig = {
         'bnb-testnet',
         'fantom',
         'fantom-testnet',
+        'gnosis',
       ]),
       'base-goerli': 'PLACEHOLDER_STRING',
     },
