@@ -82,6 +82,10 @@ const networks: NetworksUserConfig =
           url: env.getNodeUrl('base-goerli'),
           accounts: env.getAccounts('base-goerli'),
         },
+        ['base']: {
+          url: env.getNodeUrl('base'),
+          accounts: env.getAccounts('base'),
+        },
         ['gnosis']: {
           url: env.getNodeUrl('gnosis'),
           accounts: env.getAccounts('gnosis'),
@@ -102,6 +106,7 @@ const config: HardhatUserConfig = {
       optimism: '0x308810881807189cAe91950888b2cB73A1CC5920',
       polygon: '0xCe9F6991b48970d6c9Ef99Fffb112359584488e3',
       arbitrum: '0x84F4836e8022765Af9FBCE3Bb2887fD826c668f1',
+      base: '0x58EDd2E9bCC7eFa5205d5a73Efa160A05dbAC95D',
     },
   },
   mocha: {
@@ -152,6 +157,7 @@ const config: HardhatUserConfig = {
         'gnosis',
       ]),
       'base-goerli': 'PLACEHOLDER_STRING',
+      base: 'PLACEHOLDER_STRING',
     },
     customChains: [
       {
@@ -160,6 +166,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: 'https://api-goerli.basescan.org/api',
           browserURL: 'https://goerli.basescan.org',
+        },
+      },
+      {
+        network: 'base',
+        chainId: 8453,
+        urls: {
+          apiURL: 'https://api.basescan.org/api',
+          browserURL: 'https://basescan.org',
         },
       },
     ],
