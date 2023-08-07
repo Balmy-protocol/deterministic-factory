@@ -90,6 +90,10 @@ const networks: NetworksUserConfig =
           url: env.getNodeUrl('base-goerli'),
           accounts: env.getAccounts('base-goerli'),
         },
+        base: {
+          url: env.getNodeUrl('base'),
+          accounts: env.getAccounts('base'),
+        },
       };
 
 const config: HardhatUserConfig = {
@@ -142,6 +146,7 @@ const config: HardhatUserConfig = {
         'polygon',
         'polygon-mumbai',
         'bnb',
+        'base',
       ]),
       'base-goerli': 'PLACEHOLDER_STRING',
     },
@@ -152,6 +157,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: 'https://api-goerli.basescan.org/api',
           browserURL: 'https://goerli.basescan.org',
+        },
+      },
+      {
+        network: 'base',
+        chainId: 8453,
+        urls: {
+          apiURL: 'https://api.basescan.org/api',
+          browserURL: 'https://basescan.org',
         },
       },
     ],
