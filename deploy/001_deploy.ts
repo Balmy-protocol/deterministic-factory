@@ -4,14 +4,13 @@ import { shouldVerifyContract } from '../utils/deploy';
 
 const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer, meanDeployer, msig } = await hre.getNamedAccounts();
-  console.log('dpeloyer', deployer, 'mean deployer', meanDeployer, 'msig', msig);
 
   const deploy = await hre.deployments.deploy('DeterministicFactory', {
     contract: 'solidity/contracts/DeterministicFactory.sol:DeterministicFactory',
     from: deployer,
     args: [msig, meanDeployer],
     log: true,
-    gasLimit: 1_000_000,
+    gasLimit: 3_800_000,
   });
 
   if (await shouldVerifyContract(deploy)) {

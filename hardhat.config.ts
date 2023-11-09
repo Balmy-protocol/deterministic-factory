@@ -163,7 +163,7 @@ const config: HardhatUserConfig = {
       ]),
       'base-goerli': 'PLACEHOLDER_STRING',
       base: 'PLACEHOLDER_STRING',
-      rootstock: 'PLACEHOLDER_STRING',
+      rootstock: 'abc',
       linea: 'PLACEHOLDER_STRING',
       fuse: 'PLACEHOLDER_STRING',
     },
