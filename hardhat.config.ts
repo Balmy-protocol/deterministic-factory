@@ -90,6 +90,10 @@ const networks: NetworksUserConfig =
           url: env.getNodeUrl('gnosis'),
           accounts: env.getAccounts('gnosis'),
         },
+        ['rootstock']: {
+          url: env.getNodeUrl('rootstock'),
+          accounts: env.getAccounts('rootstock'),
+        },
       };
 
 const config: HardhatUserConfig = {
@@ -107,6 +111,7 @@ const config: HardhatUserConfig = {
       polygon: '0xCe9F6991b48970d6c9Ef99Fffb112359584488e3',
       arbitrum: '0x84F4836e8022765Af9FBCE3Bb2887fD826c668f1',
       base: '0x58EDd2E9bCC7eFa5205d5a73Efa160A05dbAC95D',
+      rootstock: '0x26d249089b2849bb0643405a9003f35824fa1f24',
     },
   },
   mocha: {
@@ -158,6 +163,9 @@ const config: HardhatUserConfig = {
       ]),
       'base-goerli': 'PLACEHOLDER_STRING',
       base: 'PLACEHOLDER_STRING',
+      rootstock: 'abc',
+      linea: 'PLACEHOLDER_STRING',
+      fuse: 'PLACEHOLDER_STRING',
     },
     customChains: [
       {
@@ -174,6 +182,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: 'https://api.basescan.org/api',
           browserURL: 'https://basescan.org',
+        },
+      },
+      {
+        network: 'rootstock',
+        chainId: 30,
+        urls: {
+          apiURL: 'https://rootstock.blockscout.com/api',
+          browserURL: 'https://rootstock.blockscout.com',
         },
       },
     ],

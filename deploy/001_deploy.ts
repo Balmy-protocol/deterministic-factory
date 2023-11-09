@@ -10,7 +10,7 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
     from: deployer,
     args: [msig, meanDeployer],
     log: true,
-    gasLimit: 1_000_000,
+    gasLimit: 3_800_000,
   });
 
   if (await shouldVerifyContract(deploy)) {
