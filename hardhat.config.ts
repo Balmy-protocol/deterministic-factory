@@ -106,6 +106,10 @@ const networks: NetworksUserConfig =
           url: env.getNodeUrl('celo'),
           accounts: env.getAccounts('celo'),
         },
+        ['linea']: {
+          url: env.getNodeUrl('linea'),
+          accounts: env.getAccounts('linea'),
+        },
       };
 
 const config: HardhatUserConfig = {
@@ -128,6 +132,7 @@ const config: HardhatUserConfig = {
       moonbeam: '0xa1667E34fc9a602C38E19246176D28831c5794EB',
       celo: '0x94F96A6A7bF34e85bfdfeE13987001CAE3A47EEB',
       avalanche: '0xcD736597565fcdcF85cb9f0b6759bF2E4eab38D2',
+      linea: '0xfCCCba57aa4a51026E3b50ecB377Fc7382aCD9E2',
     },
   },
   mocha: {
@@ -208,6 +213,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: 'https://api.celoscan.io/api',
           browserURL: 'https://celoscan.io',
+        },
+      },
+      {
+        network: 'linea',
+        chainId: 59144,
+        urls: {
+          apiURL: 'https://api.lineascan.build',
+          browserURL: 'https://lineascan.build',
         },
       },
       {
