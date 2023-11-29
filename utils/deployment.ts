@@ -78,6 +78,13 @@ export const deployThroughDeterministicFactory = async ({
 
   const deploymentAddress = await deterministicFactory.getDeployed(saltAsBytes);
 
+  await deterministicFactory.connect(deployerSigner).callStatic.deploy(
+    saltAsBytes, // SALT
+    creationCode,
+    0, // Value
+    { ...overrides }
+  );
+
   const deploymentTx = await deterministicFactory.connect(deployerSigner).deploy(
     saltAsBytes, // SALT
     creationCode,

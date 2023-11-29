@@ -94,6 +94,18 @@ const networks: NetworksUserConfig =
           url: env.getNodeUrl('rootstock'),
           accounts: env.getAccounts('rootstock'),
         },
+        ['fuse']: {
+          url: env.getNodeUrl('fuse'),
+          accounts: env.getAccounts('fuse'),
+        },
+        ['moonbeam']: {
+          url: env.getNodeUrl('moonbeam'),
+          accounts: env.getAccounts('moonbeam'),
+        },
+        ['celo']: {
+          url: env.getNodeUrl('celo'),
+          accounts: env.getAccounts('celo'),
+        },
       };
 
 const config: HardhatUserConfig = {
@@ -112,6 +124,10 @@ const config: HardhatUserConfig = {
       arbitrum: '0x84F4836e8022765Af9FBCE3Bb2887fD826c668f1',
       base: '0x58EDd2E9bCC7eFa5205d5a73Efa160A05dbAC95D',
       rootstock: '0x26d249089b2849bb0643405a9003f35824fa1f24',
+      fuse: '0x5C4fE9D48b6B8938206B47343329572064fdebe2',
+      moonbeam: '0xa1667E34fc9a602C38E19246176D28831c5794EB',
+      celo: '0x94F96A6A7bF34e85bfdfeE13987001CAE3A47EEB',
+      avalanche: '0xcD736597565fcdcF85cb9f0b6759bF2E4eab38D2',
     },
   },
   mocha: {
@@ -163,9 +179,11 @@ const config: HardhatUserConfig = {
       ]),
       'base-goerli': 'PLACEHOLDER_STRING',
       base: 'PLACEHOLDER_STRING',
-      rootstock: 'abc',
+      rootstock: 'PLACEHOLDER_STRING',
       linea: 'PLACEHOLDER_STRING',
       fuse: 'PLACEHOLDER_STRING',
+      moonbeam: 'PLACEHOLDER_STRING',
+      celo: 'PLACEHOLDER_STRING',
     },
     customChains: [
       {
@@ -185,11 +203,27 @@ const config: HardhatUserConfig = {
         },
       },
       {
+        network: 'celo',
+        chainId: 42220,
+        urls: {
+          apiURL: 'https://api.celoscan.io/api',
+          browserURL: 'https://celoscan.io',
+        },
+      },
+      {
         network: 'rootstock',
         chainId: 30,
         urls: {
           apiURL: 'https://rootstock.blockscout.com/api',
           browserURL: 'https://rootstock.blockscout.com',
+        },
+      },
+      {
+        network: 'fuse',
+        chainId: 122,
+        urls: {
+          apiURL: 'https://explorer.fuse.io/api',
+          browserURL: 'https://explorer.fuse.io',
         },
       },
     ],
