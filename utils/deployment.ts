@@ -77,24 +77,31 @@ export const deployThroughDeterministicFactory = async ({
   });
 
   const deploymentAddress = await deterministicFactory.getDeployed(saltAsBytes);
+  const deployedBytecode = await ethers.provider.getCode(deploymentAddress);
 
-  await deterministicFactory.connect(deployerSigner).callStatic.deploy(
-    saltAsBytes, // SALT
-    creationCode,
-    0, // Value
-    { ...overrides }
-  );
+  let receipt: any;
+  if (!existingDeployment && deployedBytecode !== '0x') {
+    // For some reason previous deployment wasn't saved
+    if (log) console.log(`deployment "${name}" at ${deploymentAddress} was not saved, re-fetching`);
+  } else {
+    await deterministicFactory.connect(deployerSigner).callStatic.deploy(
+      saltAsBytes, // SALT
+      creationCode,
+      0, // Value
+      { ...overrides }
+    );
 
-  const deploymentTx = await deterministicFactory.connect(deployerSigner).deploy(
-    saltAsBytes, // SALT
-    creationCode,
-    0, // Value
-    { ...overrides }
-  );
+    const deploymentTx = await deterministicFactory.connect(deployerSigner).deploy(
+      saltAsBytes, // SALT
+      creationCode,
+      0, // Value
+      { ...overrides }
+    );
 
-  if (log) console.log(`deploying "${name}" (tx: ${deploymentTx.hash}) at ${deploymentAddress}`);
+    if (log) console.log(`deploying "${name}" (tx: ${deploymentTx.hash}) at ${deploymentAddress}`);
 
-  const receipt = await deploymentTx.wait();
+    receipt = await deploymentTx.wait();
+  }
 
   const deployment = await hre.deployments.buildDeploymentSubmission({
     name,
