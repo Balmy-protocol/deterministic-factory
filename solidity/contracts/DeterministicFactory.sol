@@ -3,7 +3,7 @@ pragma solidity 0.8.7;
 
 import {CREATE3} from '@rari-capital/solmate/src/utils/CREATE3.sol';
 import {IDeterministicFactory} from '../interfaces/IDeterministicFactory.sol';
-import {AccessControl} from '@openzeppelin/contracts/access/AccessControl.sol';
+import {AccessControl} from '@openzeppelin/contracts-4.6.0/access/AccessControl.sol';
 
 contract DeterministicFactory is AccessControl, IDeterministicFactory {
   /// @inheritdoc IDeterministicFactory

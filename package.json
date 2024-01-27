@@ -70,7 +70,7 @@
     "eth-gas-reporter/colors": "1.4.0"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "4.6.0",
+    "@openzeppelin/contracts-4.6.0": "npm:@openzeppelin/contracts@4.6.0",
     "@rari-capital/solmate": "6.2.0"
   },
   "devDependencies": {
