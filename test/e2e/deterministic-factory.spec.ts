@@ -14,14 +14,14 @@ import { impersonate, setBalance } from '@utils/wallet';
 describe('DeterministicFactory', () => {
   let deterministicFactoryContract: DeterministicFactory;
   let snapshotId: string;
-  let meanDeployer: JsonRpcSigner;
+  let balmyDeployer: JsonRpcSigner;
 
   before(async () => {
     await deployments.run(['DeterministicFactory']);
     deterministicFactoryContract = await ethers.getContract<DeterministicFactory>('DeterministicFactory');
     const namedAccounts = await getNamedAccounts();
-    meanDeployer = await impersonate(namedAccounts.meanDeployer);
-    await setBalance({ account: namedAccounts.meanDeployer, balance: constants.MaxUint256 });
+    balmyDeployer = await impersonate(namedAccounts.balmyDeployer);
+    await setBalance({ account: namedAccounts.balmyDeployer, balance: constants.MaxUint256 });
     snapshotId = await evm.snapshot.take();
   });
 
@@ -32,7 +32,7 @@ describe('DeterministicFactory', () => {
   when('we deploy on a normal workflow', () => {
     then('deploys and gets contract correctly', async () => {
       const ERC20DeploymentSalt = randomHex(32);
-      await deterministicFactoryContract.connect(meanDeployer).deploy(
+      await deterministicFactoryContract.connect(balmyDeployer).deploy(
         ERC20DeploymentSalt,
         getCreationCode({
           bytecode: ERC20Mock__factory.bytecode,
