@@ -14,13 +14,13 @@ You can see how it can be used under the [end to end tests](./test/e2e).
 
 The package will contain:
 
-- Compatible deployments for [hardhat-deploy]() plugin under the `@mean-finance/deterministic-factory/deployments` folder.
-- Typescript smart contract typings under `@mean-finance/deterministic-factory/typechained`
+- Compatible deployments for [hardhat-deploy]() plugin under the `@balmy/deterministic-factory/deployments` folder.
+- Typescript smart contract typings under `@balmy/deterministic-factory/typechained`
 
 ## Installation
 
 To install with [**Hardhat**](https://github.com/nomiclabs/hardhat) or [**Truffle**](https://github.com/trufflesuite/truffle):
 
 ```sh
-npm install @mean-finance/deterministic-factory
+npm install @balmy/deterministic-factory
 ```

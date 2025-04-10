@@ -119,7 +119,7 @@ const config: HardhatUserConfig = {
       default: 0,
     },
     eoaAdmin: '0x1a00e1E311009E56e3b0B9Ed6F86f5Ce128a1C01',
-    meanDeployer: '0xe48a5173AdE669651120cb5E99e6fE140d4d73da',
+    balmyDeployer: '0xe48a5173AdE669651120cb5E99e6fE140d4d73da',
     msig: {
       default: '0x1a00e1E311009E56e3b0B9Ed6F86f5Ce128a1C01',
       ethereum: '0xEC864BE26084ba3bbF3cAAcF8F6961A9263319C4',
